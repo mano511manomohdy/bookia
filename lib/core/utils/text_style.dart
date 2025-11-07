@@ -23,7 +23,7 @@ TextStyle getTitleTextStyle(
   return TextStyle(
     fontFamily: "DM Serif Display",
     fontWeight: fontWeight ?? FontWeight.bold,
-    fontSize: fontsize ?? 16,
+    fontSize: fontsize ?? 20,
     color: color ?? Theme.of(context).colorScheme.onSurface,
   );
 }
