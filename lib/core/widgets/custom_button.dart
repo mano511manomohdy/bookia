@@ -1,5 +1,5 @@
-import 'package:bokkia/core/utils/AppColors.dart';
-import 'package:bokkia/core/utils/textStyle.dart';
+import 'package:bokkia/core/utils/app_colors.dart';
+import 'package:bokkia/core/utils/text_style.dart';
 import 'package:flutter/material.dart';
 
 class CustomButton extends StatelessWidget {
@@ -29,7 +29,7 @@ class CustomButton extends StatelessWidget {
       onPressed: onpressed,
       child: Text(
         text,
-        style: GetBodyTextStyle(context, color: AppColors.whiteColor),
+        style: getBodyTextStyle(context, color: AppColors.whiteColor),
       ),
     );
   }

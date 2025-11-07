@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-TextStyle GetHeadLineTextStyle(
+TextStyle getHeadLineTextStyle(
   BuildContext context, {
   double? fontsize,
   Color? color,
@@ -14,7 +14,7 @@ TextStyle GetHeadLineTextStyle(
   );
 }
 
-TextStyle GetTitleTextStyle(
+TextStyle getTitleTextStyle(
   BuildContext context, {
   double? fontsize,
   Color? color,
@@ -28,7 +28,7 @@ TextStyle GetTitleTextStyle(
   );
 }
 
-TextStyle GetBodyTextStyle(
+TextStyle getBodyTextStyle(
   BuildContext context, {
   double? fontsize,
   Color? color,
@@ -42,7 +42,7 @@ TextStyle GetBodyTextStyle(
   );
 }
 
-TextStyle GetSmallTextStyle(
+TextStyle getSmallTextStyle(
   BuildContext context, {
   double? fontsize,
   Color? color,
