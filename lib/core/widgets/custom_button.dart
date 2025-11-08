@@ -8,21 +8,24 @@ class CustomButton extends StatelessWidget {
     this.size,
     required this.onpressed,
     this.color,
+    this.hasborder = false,
   });
   final Size? size;
   final Function() onpressed;
   final Color? color;
   final Text text;
+  final bool hasborder;
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
-        elevation: 5,
         backgroundColor: color ?? AppColors.primaryColor,
-        side: BorderSide.none,
+        side: hasborder
+            ? BorderSide(color: AppColors.darkcolor, width: 1)
+            : BorderSide.none,
         minimumSize: size ?? Size(double.infinity, 40),
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadiusGeometry.circular(12),
+          borderRadius: BorderRadiusGeometry.circular(8),
         ),
       ),
       onPressed: onpressed,

@@ -1,8 +1,11 @@
 import 'package:bokkia/core/constants/assets.dart';
+import 'package:bokkia/core/extenstions/navigator.dart';
 import 'package:bokkia/core/utils/app_colors.dart';
 import 'package:bokkia/core/utils/text_style.dart';
 import 'package:bokkia/core/widgets/custom_button.dart';
 import 'package:bokkia/core/widgets/logo.dart';
+import 'package:bokkia/features/auth/presentation/page/login.dart';
+import 'package:bokkia/features/auth/presentation/page/register.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
@@ -41,17 +44,23 @@ class Welcom extends StatelessWidget {
                       color: AppColors.whiteColor,
                     ),
                   ),
-                  onpressed: () {},
+                  onpressed: () {
+                    context.pushTo(Login());
+                  },
                   color: AppColors.primaryColor,
                 ),
                 Gap(10),
                 CustomButton(
                   size: Size(double.infinity, 56),
+
                   text: Text(
                     "Register",
                     style: getBodyTextStyle(context, fontsize: 14),
                   ),
-                  onpressed: () {},
+                  onpressed: () {
+                    context.pushTo(Register());
+                  },
+                  hasborder: true,
                   color: AppColors.whiteColor,
                 ),
                 Spacer(flex: 1),

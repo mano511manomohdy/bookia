@@ -15,19 +15,19 @@ class Apptheme {
     scaffoldBackgroundColor: AppColors.whiteColor,
     inputDecorationTheme: InputDecorationTheme(
       enabledBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(15),
-        borderSide: BorderSide(color: AppColors.primaryColor),
+        borderRadius: BorderRadius.circular(8),
+        borderSide: BorderSide(color: AppColors.bordercolor),
       ),
       focusedBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(15),
-        borderSide: BorderSide(color: AppColors.primaryColor),
+        borderRadius: BorderRadius.circular(8),
+        borderSide: BorderSide(color: AppColors.bordercolor),
       ),
       errorBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(15),
+        borderRadius: BorderRadius.circular(8),
         borderSide: BorderSide(color: AppColors.bordercolor),
       ),
       focusedErrorBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(15),
+        borderRadius: BorderRadius.circular(8),
         borderSide: BorderSide(color: AppColors.bordercolor),
       ),
     ),
@@ -46,19 +46,19 @@ class Apptheme {
     scaffoldBackgroundColor: AppColors.darkcolor,
     inputDecorationTheme: InputDecorationTheme(
       enabledBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(15),
-        borderSide: BorderSide(color: AppColors.primaryColor),
+        borderRadius: BorderRadius.circular(8),
+        borderSide: BorderSide(color: AppColors.bordercolor),
       ),
       focusedBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(15),
-        borderSide: BorderSide(color: AppColors.primaryColor),
+        borderRadius: BorderRadius.circular(8),
+        borderSide: BorderSide(color: AppColors.bordercolor),
       ),
       errorBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(15),
+        borderRadius: BorderRadius.circular(8),
         borderSide: BorderSide(color: AppColors.bordercolor),
       ),
       focusedErrorBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(15),
+        borderRadius: BorderRadius.circular(8),
         borderSide: BorderSide(color: AppColors.bordercolor),
       ),
     ),
