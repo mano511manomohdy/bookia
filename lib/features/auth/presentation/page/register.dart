@@ -24,6 +24,12 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
+  final formKey = GlobalKey<FormState>();
+  TextEditingController nameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController passwordConfirmationController =
+      TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -64,7 +70,7 @@ class _RegisterState extends State<Register> {
             padding: const EdgeInsets.all(22.0),
             child: SingleChildScrollView(
               child: Form(
-                key: cubit.formKey,
+                key: formKey,
                 child: Column(
                   children: [
                     Text(
@@ -73,7 +79,7 @@ class _RegisterState extends State<Register> {
                     ),
                     Gap(32),
                     TextFormField(
-                      controller: cubit.nameController,
+                      controller: nameController,
                       decoration: InputDecoration(
                         fillColor: AppColors.accentcolor,
                         filled: true,
@@ -94,7 +100,7 @@ class _RegisterState extends State<Register> {
                     ),
                     Gap(15),
                     TextFormField(
-                      controller: cubit.emailController,
+                      controller: emailController,
                       decoration: InputDecoration(
                         fillColor: AppColors.accentcolor,
                         filled: true,
@@ -123,7 +129,7 @@ class _RegisterState extends State<Register> {
                     Gap(15),
                     TextFormField(
                       obscureText: true,
-                      controller: cubit.passwordController,
+                      controller: passwordController,
                       decoration: InputDecoration(
                         fillColor: AppColors.accentcolor,
                         filled: true,
@@ -153,7 +159,7 @@ class _RegisterState extends State<Register> {
                     Gap(15),
                     TextFormField(
                       obscureText: true,
-                      controller: cubit.passwordConfirmationController,
+                      controller: passwordConfirmationController,
                       decoration: InputDecoration(
                         fillColor: AppColors.accentcolor,
                         filled: true,
@@ -194,14 +200,14 @@ class _RegisterState extends State<Register> {
                         ),
                       ),
                       onpressed: () {
-                        if (cubit.formKey.currentState!.validate()) {
+                        if (formKey.currentState!.validate()) {
                           cubit.register(
                             AuthRequest(
-                              name: cubit.nameController.text,
-                              email: cubit.emailController.text,
-                              password: cubit.passwordController.text,
+                              name: nameController.text,
+                              email: emailController.text,
+                              password: passwordController.text,
                               passwordConfirmation:
-                                  cubit.passwordConfirmationController.text,
+                                  passwordConfirmationController.text,
                             ),
                           );
                         }
