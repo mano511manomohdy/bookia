@@ -2,8 +2,8 @@ import 'package:bokkia/core/utils/app_colors.dart';
 import 'package:bokkia/core/utils/text_style.dart';
 import 'package:flutter/material.dart';
 
-class email_widget extends StatelessWidget {
-  const email_widget({super.key, required this.emailController});
+class EmailWidget extends StatelessWidget {
+  const EmailWidget({super.key, required this.emailController});
 
   final TextEditingController emailController;
 

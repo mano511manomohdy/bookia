@@ -3,8 +3,8 @@ import 'package:bokkia/core/utils/app_colors.dart';
 import 'package:bokkia/features/welcom/welcom.dart';
 import 'package:flutter/material.dart';
 
-class backButton extends StatelessWidget {
-  const backButton({super.key});
+class ButtonBack extends StatelessWidget {
+  const ButtonBack({super.key});
 
   @override
   Widget build(BuildContext context) {

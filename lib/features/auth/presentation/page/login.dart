@@ -14,7 +14,7 @@ import 'package:bokkia/features/auth/presentation/page/forget_password.dart';
 import 'package:bokkia/features/auth/presentation/page/register.dart';
 import 'package:bokkia/features/auth/presentation/widget/bottom_auth.dart';
 import 'package:bokkia/features/auth/presentation/widget/email_widget.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide BackButton;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
@@ -36,7 +36,7 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(automaticallyImplyLeading: false, title: backButton()),
+      appBar: AppBar(automaticallyImplyLeading: false, title: ButtonBack()),
       body: Padding(
         padding: const EdgeInsets.all(22.0),
         child: SingleChildScrollView(
@@ -63,7 +63,7 @@ class _LoginState extends State<Login> {
                       style: getHeadLineTextStyle(context),
                     ),
                     Gap(32),
-                    email_widget(emailController: emailController),
+                    EmailWidget(emailController: emailController),
                     Gap(15),
                     TextFormField(
                       controller: passwordController,
@@ -160,7 +160,7 @@ class _LoginState extends State<Login> {
         ),
       ),
       bottomNavigationBar: SafeArea(
-        child: bottom_auth(
+        child: BottomAuth(
           text: "Register Now",
           onPressed: () {
             context.pushReplacement(Register());
