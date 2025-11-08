@@ -3,6 +3,7 @@ import 'package:bokkia/core/utils/app_colors.dart';
 import 'package:bokkia/core/utils/text_style.dart';
 import 'package:bokkia/core/widgets/back_button.dart';
 import 'package:bokkia/core/widgets/custom_button.dart';
+import 'package:bokkia/features/auth/presentation/page/otp_verfication.dart';
 import 'package:bokkia/features/auth/presentation/page/password_changed.dart';
 import 'package:bokkia/features/auth/presentation/widget/password_widget.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +18,14 @@ class NewPassword extends StatelessWidget {
     TextEditingController password = TextEditingController();
     TextEditingController confirmPassword = TextEditingController();
     return Scaffold(
-      appBar: AppBar(automaticallyImplyLeading: false, title: ButtonBack()),
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        title: ButtonBack(
+          onPressed: () {
+            context.pushReplacement(OtpVerfication());
+          },
+        ),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(22.0),
         child: Form(

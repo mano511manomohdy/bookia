@@ -4,8 +4,8 @@ import 'package:bokkia/features/welcom/welcom.dart';
 import 'package:flutter/material.dart';
 
 class ButtonBack extends StatelessWidget {
-  const ButtonBack({super.key});
-
+  const ButtonBack({super.key, this.onPressed});
+  final void Function()? onPressed;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -18,9 +18,7 @@ class ButtonBack extends StatelessWidget {
         color: AppColors.whiteColor,
       ),
       child: IconButton(
-        onPressed: () {
-          context.pushReplacement(Welcom());
-        },
+        onPressed: onPressed,
         icon: Icon(Icons.arrow_back_ios, color: AppColors.darkcolor),
       ),
     );

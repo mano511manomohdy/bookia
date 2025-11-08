@@ -18,7 +18,14 @@ class ForgetPassword extends StatelessWidget {
     final formkey = GlobalKey<FormState>();
     TextEditingController emailController = TextEditingController();
     return Scaffold(
-      appBar: AppBar(automaticallyImplyLeading: false, title: ButtonBack()),
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        title: ButtonBack(
+          onPressed: () {
+            context.pushReplacement(Login());
+          },
+        ),
+      ),
 
       body: Padding(
         padding: const EdgeInsets.all(22.0),

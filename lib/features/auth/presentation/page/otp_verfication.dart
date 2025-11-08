@@ -3,6 +3,7 @@ import 'package:bokkia/core/utils/app_colors.dart';
 import 'package:bokkia/core/utils/text_style.dart';
 import 'package:bokkia/core/widgets/back_button.dart';
 import 'package:bokkia/core/widgets/custom_button.dart';
+import 'package:bokkia/features/auth/presentation/page/forget_password.dart';
 import 'package:bokkia/features/auth/presentation/page/new_password.dart';
 import 'package:bokkia/features/auth/presentation/widget/bottom_auth.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +16,14 @@ class OtpVerfication extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(automaticallyImplyLeading: false, title: ButtonBack()),
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        title: ButtonBack(
+          onPressed: () {
+            context.pushReplacement(ForgetPassword());
+          },
+        ),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(22.0),
         child: Column(
