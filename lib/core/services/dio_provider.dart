@@ -6,7 +6,7 @@ class DioProvider {
     _dio = Dio(BaseOptions(baseUrl: "https://codingarabic.online/api/"));
   }
 
-  Future<Response> get({
+  static Future<Response> get({
     required String path,
     Map<String, dynamic>? data,
     Map<String, dynamic>? params,
@@ -20,13 +20,13 @@ class DioProvider {
     );
   }
 
-  Future<Response> post({
+  static Future<Response> post({
     required String path,
     Map<String, dynamic>? data,
     Map<String, dynamic>? params,
     Map<String, dynamic>? headers,
   }) {
-    return _dio.get(
+    return _dio.post(
       path,
       data: data,
       queryParameters: params,
@@ -34,13 +34,13 @@ class DioProvider {
     );
   }
 
-  Future<Response> put({
+  static Future<Response> put({
     required String path,
     Map<String, dynamic>? data,
     Map<String, dynamic>? params,
     Map<String, dynamic>? headers,
   }) {
-    return _dio.get(
+    return _dio.put(
       path,
       data: data,
       queryParameters: params,
@@ -48,13 +48,13 @@ class DioProvider {
     );
   }
 
-  Future<Response> delete({
+  static Future<Response> delete({
     required String path,
     Map<String, dynamic>? data,
     Map<String, dynamic>? params,
     Map<String, dynamic>? headers,
   }) {
-    return _dio.get(
+    return _dio.delete(
       path,
       data: data,
       queryParameters: params,

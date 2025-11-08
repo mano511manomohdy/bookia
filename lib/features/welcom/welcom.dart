@@ -18,7 +18,7 @@ class Welcom extends StatelessWidget {
       body: Stack(
         children: [
           Image.asset(
-            Logo.welcom,
+            LogoImage.welcom,
             fit: BoxFit.cover,
             width: double.infinity,
             height: double.infinity,
@@ -31,7 +31,7 @@ class Welcom extends StatelessWidget {
             child: Column(
               children: [
                 Spacer(flex: 1),
-                logo(),
+                Logo(),
                 Text("Order Your Book Now!", style: getTitleTextStyle(context)),
                 Spacer(flex: 2),
                 CustomButton(

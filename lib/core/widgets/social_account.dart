@@ -2,8 +2,8 @@ import 'package:bokkia/core/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-class Social_Account extends StatelessWidget {
-  const Social_Account({super.key, required this.image});
+class SocialAccount extends StatelessWidget {
+  const SocialAccount({super.key, required this.image});
   final String image;
   @override
   Widget build(BuildContext context) {

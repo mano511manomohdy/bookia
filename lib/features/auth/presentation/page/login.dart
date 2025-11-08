@@ -111,9 +111,9 @@ class _LoginState extends State<Login> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Social_Account(image: "assets/icons/facebook_ic.svg"),
-                  Social_Account(image: "assets/icons/google_ic.svg"),
-                  Social_Account(image: "assets/icons/cib_apple.svg"),
+                  SocialAccount(image: "assets/icons/facebook_ic.svg"),
+                  SocialAccount(image: "assets/icons/google_ic.svg"),
+                  SocialAccount(image: "assets/icons/cib_apple.svg"),
                 ],
               ),
             ],

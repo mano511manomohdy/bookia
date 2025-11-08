@@ -10,8 +10,10 @@ dependencies:
   dio: ^5.9.0
   flutter:
     sdk: flutter
+  flutter_bloc: ^9.1.1
   flutter_svg: ^2.2.2
   gap: ^3.0.1
+  lottie: ^3.3.2
 
 dev_dependencies:
   flutter_test:

@@ -36,7 +36,7 @@ class _SplachScreenState extends State<SplachScreen> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SvgPicture.asset(Logo.logo, width: 100, height: 100),
+                SvgPicture.asset(LogoImage.logo, width: 100, height: 100),
                 Text("Bookia", style: getHeadLineTextStyle(context)),
               ],
             ),
