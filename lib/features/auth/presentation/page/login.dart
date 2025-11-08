@@ -3,14 +3,17 @@ import 'dart:developer';
 import 'package:bokkia/core/extenstions/navigator.dart';
 import 'package:bokkia/core/utils/app_colors.dart';
 import 'package:bokkia/core/utils/text_style.dart';
+import 'package:bokkia/core/widgets/back_button.dart';
 import 'package:bokkia/core/widgets/custom_button.dart';
 import 'package:bokkia/core/widgets/dialogs.dart';
 import 'package:bokkia/core/widgets/social_account.dart';
 import 'package:bokkia/features/auth/data/model/request/auth_request.dart';
 import 'package:bokkia/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:bokkia/features/auth/presentation/cubit/auth_state.dart';
+import 'package:bokkia/features/auth/presentation/page/forget_password.dart';
 import 'package:bokkia/features/auth/presentation/page/register.dart';
-import 'package:bokkia/features/welcom/welcom.dart';
+import 'package:bokkia/features/auth/presentation/widget/bottom_auth.dart';
+import 'package:bokkia/features/auth/presentation/widget/email_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -33,25 +36,7 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        title: Container(
-          padding: EdgeInsets.only(left: 2.5),
-          width: 40,
-          height: 40,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: AppColors.bordercolor, width: 2),
-            color: AppColors.whiteColor,
-          ),
-          child: IconButton(
-            onPressed: () {
-              context.pushReplacement(Welcom());
-            },
-            icon: Icon(Icons.arrow_back_ios, color: AppColors.darkcolor),
-          ),
-        ),
-      ),
+      appBar: AppBar(automaticallyImplyLeading: false, title: backButton()),
       body: Padding(
         padding: const EdgeInsets.all(22.0),
         child: SingleChildScrollView(
@@ -78,31 +63,7 @@ class _LoginState extends State<Login> {
                       style: getHeadLineTextStyle(context),
                     ),
                     Gap(32),
-                    TextFormField(
-                      controller: emailController,
-                      decoration: InputDecoration(
-                        fillColor: AppColors.accentcolor,
-                        filled: true,
-                        hintText: "Enter your email",
-                        hintStyle: getSmallTextStyle(
-                          context,
-                          color: AppColors.gray,
-                        ),
-                      ),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter your email';
-                        }
-                        final emailRegex = RegExp(
-                          r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$',
-                        );
-                        if (!emailRegex.hasMatch(value)) {
-                          return 'Please enter a valid email address';
-                        }
-
-                        return null;
-                      },
-                    ),
+                    email_widget(emailController: emailController),
                     Gap(15),
                     TextFormField(
                       controller: passwordController,
@@ -135,9 +96,14 @@ class _LoginState extends State<Login> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        Text(
-                          "Forget Password ?",
-                          style: getBodyTextStyle(context),
+                        TextButton(
+                          child: Text(
+                            "Forget Password ?",
+                            style: getBodyTextStyle(context),
+                          ),
+                          onPressed: () {
+                            context.pushReplacement(ForgetPassword());
+                          },
                         ),
                       ],
                     ),
@@ -194,20 +160,11 @@ class _LoginState extends State<Login> {
         ),
       ),
       bottomNavigationBar: SafeArea(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text("Don’t have an account?", style: getBodyTextStyle(context)),
-            TextButton(
-              child: Text(
-                "Register Now",
-                style: getBodyTextStyle(context, color: AppColors.primaryColor),
-              ),
-              onPressed: () {
-                context.pushReplacement(Register());
-              },
-            ),
-          ],
+        child: bottom_auth(
+          text: "Register Now",
+          onPressed: () {
+            context.pushReplacement(Register());
+          },
         ),
       ),
     );
