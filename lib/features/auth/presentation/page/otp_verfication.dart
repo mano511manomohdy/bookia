@@ -1,7 +1,9 @@
+import 'package:bokkia/core/extenstions/navigator.dart';
 import 'package:bokkia/core/utils/app_colors.dart';
 import 'package:bokkia/core/utils/text_style.dart';
 import 'package:bokkia/core/widgets/back_button.dart';
 import 'package:bokkia/core/widgets/custom_button.dart';
+import 'package:bokkia/features/auth/presentation/page/new_password.dart';
 import 'package:bokkia/features/auth/presentation/widget/bottom_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
@@ -59,7 +61,9 @@ class OtpVerfication extends StatelessWidget {
                 "Verfiy",
                 style: getBodyTextStyle(context, color: AppColors.whiteColor),
               ),
-              onpressed: () {},
+              onpressed: () {
+                context.pushReplacement(NewPassword());
+              },
             ),
           ],
         ),

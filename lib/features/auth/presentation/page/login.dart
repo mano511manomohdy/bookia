@@ -14,6 +14,7 @@ import 'package:bokkia/features/auth/presentation/page/forget_password.dart';
 import 'package:bokkia/features/auth/presentation/page/register.dart';
 import 'package:bokkia/features/auth/presentation/widget/bottom_auth.dart';
 import 'package:bokkia/features/auth/presentation/widget/email_widget.dart';
+import 'package:bokkia/features/auth/presentation/widget/password_widget.dart';
 import 'package:flutter/material.dart' hide BackButton;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -65,33 +66,7 @@ class _LoginState extends State<Login> {
                     Gap(32),
                     EmailWidget(emailController: emailController),
                     Gap(15),
-                    TextFormField(
-                      controller: passwordController,
-                      obscureText: true,
-                      decoration: InputDecoration(
-                        fillColor: AppColors.accentcolor,
-                        filled: true,
-                        hintText: "Enter your password",
-                        hintStyle: getSmallTextStyle(
-                          context,
-                          color: AppColors.gray,
-                        ),
-                        suffixIconConstraints: BoxConstraints(minWidth: 30),
-                        suffixIcon: Padding(
-                          padding: const EdgeInsets.only(right: 10.0),
-                          child: SvgPicture.asset(
-                            fit: BoxFit.cover,
-                            "assets/icons/fluent_eye-20-filled.svg",
-                          ),
-                        ),
-                      ),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter your password';
-                        }
-                        return null;
-                      },
-                    ),
+                    PasswordWidget(passwordController: passwordController),
                     Gap(13),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
