@@ -15,9 +15,9 @@ import 'package:bokkia/features/auth/presentation/page/register.dart';
 import 'package:bokkia/features/auth/presentation/widget/bottom_auth.dart';
 import 'package:bokkia/features/auth/presentation/widget/email_widget.dart';
 import 'package:bokkia/features/auth/presentation/widget/password_widget.dart';
-import 'package:flutter/material.dart' hide BackButton;
+import 'package:bokkia/features/welcom/welcom.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 
 class Login extends StatefulWidget {
@@ -37,7 +37,14 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(automaticallyImplyLeading: false, title: ButtonBack()),
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        title: ButtonBack(
+          onPressed: () {
+            context.pushReplacement(Welcom());
+          },
+        ),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(22.0),
         child: SingleChildScrollView(
