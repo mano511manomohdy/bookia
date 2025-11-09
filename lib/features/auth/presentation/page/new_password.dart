@@ -10,7 +10,9 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
 class NewPassword extends StatelessWidget {
-  const NewPassword({super.key});
+  const NewPassword({super.key, this.email, this.otp});
+  final String? email;
+  final int? otp;
 
   @override
   Widget build(BuildContext context) {

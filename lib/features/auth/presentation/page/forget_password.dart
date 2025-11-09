@@ -8,6 +8,7 @@ import 'package:bokkia/features/auth/data/model/request/auth_request.dart';
 import 'package:bokkia/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:bokkia/features/auth/presentation/cubit/auth_state.dart';
 import 'package:bokkia/features/auth/presentation/page/login.dart';
+import 'package:bokkia/features/auth/presentation/page/otp_verfication.dart';
 import 'package:bokkia/features/auth/presentation/widget/bottom_auth.dart';
 import 'package:bokkia/features/auth/presentation/widget/email_widget.dart';
 import 'package:flutter/material.dart';
@@ -45,6 +46,9 @@ class ForgetPassword extends StatelessWidget {
                   content: Text("Password reset code sent to your email."),
                   backgroundColor: Colors.green,
                 ),
+              );
+              context.pushReplacement(
+                OtpVerfication(email: emailController.text),
               );
             } else if (state is AuthStateError) {
               Navigator.of(context).pop();
