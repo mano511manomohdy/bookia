@@ -8,6 +8,7 @@ import 'package:bokkia/features/auth/data/model/request/rest_password_request.da
 import 'package:bokkia/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:bokkia/features/auth/presentation/cubit/auth_state.dart';
 import 'package:bokkia/features/auth/presentation/page/otp_verfication.dart';
+import 'package:bokkia/features/auth/presentation/page/password_changed.dart';
 import 'package:bokkia/features/auth/presentation/widget/password_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -46,6 +47,7 @@ class NewPassword extends StatelessWidget {
                   backgroundColor: Colors.green,
                 ),
               );
+              context.pushReplacement(PasswordChanged());
             } else if (state is AuthStateError) {
               Navigator.of(context).pop();
               showErrorToast(context, state.message);

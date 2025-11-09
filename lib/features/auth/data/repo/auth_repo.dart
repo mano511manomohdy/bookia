@@ -73,6 +73,20 @@ class AuthRepo {
     }
   }
 
+  static Future<OtpResponse?> resendVerfiyCode() async {
+    try {
+      var res = await DioProvider.get(path: 'resend-verify-code');
+      if (res.statusCode == 200) {
+        return OtpResponse.fromJson(res.data);
+      } else {
+        return null;
+      }
+    } on Exception catch (e) {
+      log(e.toString());
+      return null;
+    }
+  }
+
   static Future<ResetPasswordResponse?> resetPassword(
     RestPasswordRequest params,
   ) async {

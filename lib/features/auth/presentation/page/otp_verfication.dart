@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bokkia/core/extenstions/navigator.dart';
 import 'package:bokkia/core/utils/app_colors.dart';
 import 'package:bokkia/core/utils/text_style.dart';
@@ -93,7 +95,7 @@ class OtpVerfication extends StatelessWidget {
                       animationDuration: const Duration(milliseconds: 300),
                       enableActiveFill: true,
                       onCompleted: (v) {
-                        print("Completed: $v");
+                        log("Completed: $v");
                       },
                       onChanged: (value) {},
                     ),
@@ -128,7 +130,14 @@ class OtpVerfication extends StatelessWidget {
       ),
       bottomNavigationBar: SafeArea(
         child: BottomAuth(
-          onPressed: () {},
+          onPressed: () {
+            if (otpController.text.length == 4 ||
+                otpController.text.isNotEmpty) {
+              context.read<AuthCubit>().resendVerifyCode();
+            } else {
+              showErrorToast(context, "Enter valid OTP");
+            }
+          },
           text: "ReSend",
           promptText: "Didn’t received code?",
         ),

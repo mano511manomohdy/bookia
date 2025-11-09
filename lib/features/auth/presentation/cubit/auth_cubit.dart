@@ -64,6 +64,20 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
+  Future<void> resendVerifyCode() async {
+    emit(AuthStateLoading());
+    try {
+      final value = await AuthRepo.resendVerfiyCode();
+      if (value != null) {
+        emit(AuthStateSuccess());
+      } else {
+        emit(AuthStateError("Resend OTP Failed"));
+      }
+    } on Exception catch (e) {
+      emit(AuthStateError(e.toString()));
+    }
+  }
+
   Future<void> resetPassword(RestPasswordRequest params) async {
     emit(AuthStateLoading());
     try {
