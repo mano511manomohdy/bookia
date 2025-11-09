@@ -1,6 +1,4 @@
-import 'package:bokkia/core/extenstions/navigator.dart';
 import 'package:bokkia/core/utils/app_colors.dart';
-import 'package:bokkia/features/welcom/welcom.dart';
 import 'package:flutter/material.dart';
 
 class ButtonBack extends StatelessWidget {
