@@ -2,8 +2,10 @@ import 'dart:developer';
 import 'package:bokkia/core/services/dio_provider.dart';
 import 'package:bokkia/features/auth/data/model/request/auth_request.dart';
 import 'package:bokkia/features/auth/data/model/request/otp_verification_request.dart';
+import 'package:bokkia/features/auth/data/model/request/rest_password_request.dart';
 import 'package:bokkia/features/auth/data/model/response/auth_response/auth_response.dart';
 import 'package:bokkia/features/auth/data/model/response/otp_response/otp_response/otp_response.dart';
+import 'package:bokkia/features/auth/data/model/response/reset_password_response/reset_password_response/reset_password_response.dart';
 
 class AuthRepo {
   static Future<AuthResponse?> register(AuthRequest params) async {
@@ -62,6 +64,25 @@ class AuthRepo {
       );
       if (res.statusCode == 200) {
         return OtpResponse.fromJson(res.data);
+      } else {
+        return null;
+      }
+    } on Exception catch (e) {
+      log(e.toString());
+      return null;
+    }
+  }
+
+  static Future<ResetPasswordResponse?> resetPassword(
+    RestPasswordRequest params,
+  ) async {
+    try {
+      var res = await DioProvider.post(
+        path: "reset-password",
+        data: params.toJson(),
+      );
+      if (res.statusCode == 200) {
+        return ResetPasswordResponse.fromJson(res.data);
       } else {
         return null;
       }

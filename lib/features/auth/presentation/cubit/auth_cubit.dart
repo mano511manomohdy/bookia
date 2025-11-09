@@ -1,5 +1,6 @@
 import 'package:bokkia/features/auth/data/model/request/auth_request.dart';
 import 'package:bokkia/features/auth/data/model/request/otp_verification_request.dart';
+import 'package:bokkia/features/auth/data/model/request/rest_password_request.dart';
 import 'package:bokkia/features/auth/data/repo/auth_repo.dart';
 import 'package:bokkia/features/auth/presentation/cubit/auth_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -59,6 +60,20 @@ class AuthCubit extends Cubit<AuthState> {
         emit(AuthStateError("OTP Verification Failed"));
       }
     } on Exception catch (e) {
+      emit(AuthStateError(e.toString()));
+    }
+  }
+
+  Future<void> resetPassword(RestPasswordRequest params) async {
+    emit(AuthStateLoading());
+    try {
+      final value = await AuthRepo.resetPassword(params);
+      if (value != null) {
+        emit(AuthStateSuccess());
+      } else {
+        emit(AuthStateError("Reset Password Failed"));
+      }
+    } catch (e) {
       emit(AuthStateError(e.toString()));
     }
   }

@@ -8,6 +8,7 @@ import 'package:bokkia/features/auth/data/model/request/otp_verification_request
 import 'package:bokkia/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:bokkia/features/auth/presentation/cubit/auth_state.dart';
 import 'package:bokkia/features/auth/presentation/page/forget_password.dart';
+import 'package:bokkia/features/auth/presentation/page/new_password.dart';
 import 'package:bokkia/features/auth/presentation/widget/bottom_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -45,6 +46,7 @@ class OtpVerfication extends StatelessWidget {
                   backgroundColor: Colors.green,
                 ),
               );
+              context.pushTo(NewPassword());
             } else if (state is AuthStateError) {
               Navigator.of(context).pop();
               showErrorToast(context, state.message);
