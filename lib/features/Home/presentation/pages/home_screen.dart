@@ -1,9 +1,9 @@
-import 'package:bokkia/core/utils/app_colors.dart';
 import 'package:bokkia/core/utils/text_style.dart';
-import 'package:bokkia/core/widgets/custom_button.dart';
+import 'package:bokkia/features/Home/presentation/cubit/home_cubit.dart';
 import 'package:bokkia/features/Home/presentation/widgets/best_seller_books.dart';
 import 'package:bokkia/features/Home/presentation/widgets/home_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 
@@ -30,9 +30,14 @@ class HomeScreen extends StatelessWidget {
         ],
       ),
       body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [HomeSlider(), Gap(10), BestSellerBooks()],
+        child: BlocProvider(
+          create: (context) => HomeCubit()
+            ..getSliders()
+            ..getBestSeller(),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [HomeSlider(), Gap(10), BestSellerBooks()],
+          ),
         ),
       ),
     );

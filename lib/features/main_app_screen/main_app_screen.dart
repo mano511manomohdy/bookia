@@ -29,8 +29,8 @@ class _MainAppScreenState extends State<MainAppScreen> {
         borderRadius: const BorderRadius.vertical(top: Radius.circular(25)),
         child: BackdropFilter(
           filter: ImageFilter.blur(
-            sigmaX: 10,
-            sigmaY: 10,
+            sigmaX: 5,
+            sigmaY: 5,
           ), // more blur for frosty look
           child: Container(
             decoration: BoxDecoration(
