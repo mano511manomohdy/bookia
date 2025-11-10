@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:bokkia/core/extenstions/navigator.dart';
 import 'package:bokkia/core/utils/app_colors.dart';
 import 'package:bokkia/core/utils/text_style.dart';
@@ -15,6 +13,7 @@ import 'package:bokkia/features/auth/presentation/page/register.dart';
 import 'package:bokkia/features/auth/presentation/widget/bottom_auth.dart';
 import 'package:bokkia/features/auth/presentation/widget/email_widget.dart';
 import 'package:bokkia/features/auth/presentation/widget/password_widget.dart';
+import 'package:bokkia/features/main_app_screen/main_app_screen.dart';
 import 'package:bokkia/features/welcom/welcom.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -53,8 +52,7 @@ class _LoginState extends State<Login> {
               if (state is AuthStateLoading) {
                 showLoadingDialog(context);
               } else if (state is AuthStateSuccess) {
-                Navigator.of(context).pop();
-                log("success");
+                context.pushAndRemoveUntil(MainAppScreen());
               } else if (state is AuthStateError) {
                 Navigator.of(context).pop();
                 showErrorToast(context, state.message);

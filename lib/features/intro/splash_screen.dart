@@ -1,7 +1,9 @@
 import 'package:bokkia/core/constants/assets.dart';
 import 'package:bokkia/core/extenstions/navigator.dart';
+import 'package:bokkia/core/services/local_data_helper.dart';
 import 'package:bokkia/core/utils/app_colors.dart';
 import 'package:bokkia/core/utils/text_style.dart';
+import 'package:bokkia/features/main_app_screen/main_app_screen.dart';
 import 'package:bokkia/features/welcom/welcom.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -17,9 +19,12 @@ class _SplachScreenState extends State<SplachScreen> {
   @override
   void initState() {
     super.initState();
+    String? token = AppLocalStorage.getDate(AppLocalStorage.tokenkey!);
     Future.delayed(Duration(seconds: 3), () {
-      if (mounted) {
-        context.pushReplacement(Welcom());
+      if (token != null) {
+        context.pushAndRemoveUntil(MainAppScreen());
+      } else {
+        context.pushAndRemoveUntil(Welcom());
       }
     });
   }

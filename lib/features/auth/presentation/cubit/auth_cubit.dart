@@ -1,3 +1,4 @@
+import 'package:bokkia/core/services/local_data_helper.dart';
 import 'package:bokkia/features/auth/data/model/request/auth_request.dart';
 import 'package:bokkia/features/auth/data/model/request/otp_verification_request.dart';
 import 'package:bokkia/features/auth/data/model/request/rest_password_request.dart';
@@ -14,6 +15,7 @@ class AuthCubit extends Cubit<AuthState> {
     try {
       final value = await AuthRepo.register(params);
       if (value != null) {
+        AppLocalStorage.cashData(AppLocalStorage.tokenkey!, value.data!.token);
         emit(AuthStateSuccess());
       } else {
         emit(AuthStateError("Register Failed"));
@@ -28,6 +30,7 @@ class AuthCubit extends Cubit<AuthState> {
     try {
       final value = await AuthRepo.login(params);
       if (value != null) {
+        AppLocalStorage.cashData(AppLocalStorage.tokenkey!, value.data!.token);
         emit(AuthStateSuccess());
       } else {
         emit(AuthStateError("Login Failed"));

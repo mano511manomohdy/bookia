@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:bokkia/core/extenstions/navigator.dart';
 import 'package:bokkia/core/utils/app_colors.dart';
 import 'package:bokkia/core/utils/text_style.dart';
@@ -10,6 +8,7 @@ import 'package:bokkia/features/auth/data/model/request/auth_request.dart';
 import 'package:bokkia/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:bokkia/features/auth/presentation/cubit/auth_state.dart';
 import 'package:bokkia/features/auth/presentation/page/login.dart';
+import 'package:bokkia/features/main_app_screen/main_app_screen.dart';
 import 'package:bokkia/features/welcom/welcom.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -57,8 +56,7 @@ class _RegisterState extends State<Register> {
           if (state is AuthStateLoading) {
             showLoadingDialog(context);
           } else if (state is AuthStateSuccess) {
-            Navigator.pop(context);
-            log("success");
+            context.pushAndRemoveUntil(MainAppScreen());
           } else if (state is AuthStateError) {
             Navigator.pop(context);
             showErrorToast(context, state.message);
