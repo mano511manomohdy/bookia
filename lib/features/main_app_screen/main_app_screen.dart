@@ -29,13 +29,13 @@ class _MainAppScreenState extends State<MainAppScreen> {
         borderRadius: const BorderRadius.vertical(top: Radius.circular(25)),
         child: BackdropFilter(
           filter: ImageFilter.blur(
-            sigmaX: 20,
-            sigmaY: 20,
+            sigmaX: 10,
+            sigmaY: 10,
           ), // more blur for frosty look
           child: Container(
             decoration: BoxDecoration(
               color: Colors.white.withOpacity(
-                0.15,
+                0.0,
               ), // more transparent glassy effect
             ),
             child: BottomNavigationBar(
