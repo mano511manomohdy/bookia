@@ -6,19 +6,32 @@ import 'package:bokkia/features/auth/data/model/request/rest_password_request.da
 import 'package:bokkia/features/auth/data/model/response/auth_response/auth_response.dart';
 import 'package:bokkia/features/auth/data/model/response/otp_response/otp_response/otp_response.dart';
 import 'package:bokkia/features/auth/data/model/response/reset_password_response/reset_password_response/reset_password_response.dart';
+import 'package:dio/dio.dart';
 
 class AuthRepo {
   static Future<AuthResponse?> register(AuthRequest params) async {
     try {
-      var res = await DioProvider.post(path: "register", data: params.toJson());
+      var res = await DioProvider.post(
+        path: "register",
+        data: params.toJson(),
+        options: Options(
+          validateStatus: (status) => true, // allow all status codes
+        ),
+      );
 
+      // Return response for successful registration
       if (res.statusCode == 201) {
         return AuthResponse.fromJson(res.data);
       } else {
-        return null;
+        // Log server error for debugging
+        log("Register failed: ${res.statusCode} - ${res.data}");
+        return AuthResponse.fromJson(res.data); // so Cubit can read the message
       }
-    } on Exception catch (e) {
-      log(e.toString());
+    } on DioException catch (e) {
+      log("DioException during register: ${e.message}");
+      return null;
+    } catch (e) {
+      log("Unexpected error during register: $e");
       return null;
     }
   }

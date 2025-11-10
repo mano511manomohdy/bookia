@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bokkia/core/constants/assets.dart';
 import 'package:bokkia/core/extenstions/navigator.dart';
 import 'package:bokkia/core/services/local_data_helper.dart';
@@ -19,12 +21,16 @@ class _SplachScreenState extends State<SplachScreen> {
   @override
   void initState() {
     super.initState();
-    String? token = AppLocalStorage.getDate(AppLocalStorage.tokenkey!);
+    // AppLocalStorage.clearCachedData(AppLocalStorage.tokenkey);
+    String? token = AppLocalStorage.getDate(AppLocalStorage.tokenkey);
+    log(token.toString());
     Future.delayed(Duration(seconds: 3), () {
-      if (token != null) {
-        context.pushAndRemoveUntil(MainAppScreen());
-      } else {
-        context.pushAndRemoveUntil(Welcom());
+      if (mounted) {
+        if (token != null) {
+          context.pushAndRemoveUntil(MainAppScreen());
+        } else {
+          context.pushAndRemoveUntil(Welcom());
+        }
       }
     });
   }

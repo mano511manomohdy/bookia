@@ -25,6 +25,7 @@ class DioProvider {
     Map<String, dynamic>? data,
     Map<String, dynamic>? params,
     Map<String, dynamic>? headers,
+    Options? options,
   }) {
     return _dio.post(
       path,

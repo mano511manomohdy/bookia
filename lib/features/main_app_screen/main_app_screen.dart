@@ -1,6 +1,6 @@
 import 'package:bokkia/core/utils/app_colors.dart';
-import 'package:bokkia/core/utils/text_style.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 class MainAppScreen extends StatefulWidget {
   const MainAppScreen({super.key});
@@ -10,14 +10,68 @@ class MainAppScreen extends StatefulWidget {
 }
 
 class _MainAppScreenState extends State<MainAppScreen> {
+  int currentIndex = 0;
+  List<Widget> screens = [];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Text(
-          "Main App Screen",
-          style: getBodyTextStyle(context, color: AppColors.whiteColor),
-        ),
+      body: screens[currentIndex],
+      bottomNavigationBar: BottomNavigationBar(
+        showSelectedLabels: false,
+        showUnselectedLabels: false,
+        backgroundColor: AppColors.accentcolor,
+        currentIndex: currentIndex,
+        onTap: (index) {
+          setState(() {
+            currentIndex = index;
+          });
+        },
+        items: [
+          BottomNavigationBarItem(
+            icon: SvgPicture.asset("assets/icons/Home.svg"),
+            label: "Home",
+            activeIcon: SvgPicture.asset(
+              "assets/icons/Home.svg",
+              colorFilter: ColorFilter.mode(
+                AppColors.primaryColor,
+                BlendMode.srcIn,
+              ),
+            ),
+          ),
+          BottomNavigationBarItem(
+            icon: SvgPicture.asset("assets/icons/Bookmark.svg"),
+            label: "Home",
+            activeIcon: SvgPicture.asset(
+              "assets/icons/Bookmark.svg",
+              colorFilter: ColorFilter.mode(
+                AppColors.primaryColor,
+                BlendMode.srcIn,
+              ),
+            ),
+          ),
+          BottomNavigationBarItem(
+            icon: SvgPicture.asset("assets/icons/Category.svg"),
+            label: "Home",
+            activeIcon: SvgPicture.asset(
+              "assets/icons/Category.svg",
+              colorFilter: ColorFilter.mode(
+                AppColors.primaryColor,
+                BlendMode.srcIn,
+              ),
+            ),
+          ),
+          BottomNavigationBarItem(
+            icon: SvgPicture.asset("assets/icons/Profile.svg"),
+            label: "Home",
+            activeIcon: SvgPicture.asset(
+              "assets/icons/Profile.svg",
+              colorFilter: ColorFilter.mode(
+                AppColors.primaryColor,
+                BlendMode.srcIn,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

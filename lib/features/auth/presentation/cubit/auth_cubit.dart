@@ -14,29 +14,84 @@ class AuthCubit extends Cubit<AuthState> {
     emit(AuthStateLoading());
     try {
       final value = await AuthRepo.register(params);
+
       if (value != null) {
-        AppLocalStorage.cashData(AppLocalStorage.tokenkey!, value.data!.token);
-        emit(AuthStateSuccess());
+        // Success based on backend status
+        if (value.status == 201 || value.data?.token != null) {
+          await AppLocalStorage.cashData(
+            AppLocalStorage.tokenkey,
+            value.data?.token,
+          );
+          emit(AuthStateSuccess());
+        } else {
+          emit(AuthStateError(value.message ?? "Registration failed"));
+        }
       } else {
-        emit(AuthStateError("Register Failed"));
+        emit(AuthStateError("No response from server"));
+      }
+    } on DioException catch (e) {
+      if (e.response != null) {
+        final statusCode = e.response?.statusCode;
+        final message = e.response?.data?["message"] ?? "Server error";
+
+        if (statusCode == 422) {
+          emit(AuthStateError("Invalid input: $message"));
+        } else if (statusCode == 500) {
+          emit(AuthStateError("Internal Server Error"));
+        } else {
+          emit(AuthStateError("Server Error ($statusCode): $message"));
+        }
+      } else {
+        emit(AuthStateError("Connection error: ${e.message}"));
       }
     } catch (e) {
-      emit(AuthStateError(e.toString()));
+      emit(AuthStateError("Unexpected error: $e"));
     }
   }
 
   Future<void> login(AuthRequest params) async {
     emit(AuthStateLoading());
     try {
-      final value = await AuthRepo.login(params);
-      if (value != null) {
-        AppLocalStorage.cashData(AppLocalStorage.tokenkey!, value.data!.token);
-        emit(AuthStateSuccess());
+      final response = await AuthRepo.login(params);
+
+      if (response != null) {
+        // Check if the request was successful
+        if (response.status == 200 && response.data?.token != null) {
+          // Save token locally
+          await AppLocalStorage.cashData(
+            AppLocalStorage.tokenkey,
+            response.data?.token,
+          );
+          emit(AuthStateSuccess());
+        } else {
+          // Server responded but with an error message
+          emit(AuthStateError(response.message ?? "Login failed"));
+        }
       } else {
-        emit(AuthStateError("Login Failed"));
+        emit(AuthStateError("No response from server"));
+      }
+    } on DioException catch (e) {
+      // Handle known Dio exceptions
+      if (e.response != null) {
+        final statusCode = e.response?.statusCode;
+        final message = e.response?.data?["message"] ?? "Server error";
+
+        if (statusCode == 401) {
+          emit(AuthStateError("Invalid email or password"));
+        } else if (statusCode == 422) {
+          emit(AuthStateError("Invalid input: $message"));
+        } else if (statusCode == 500) {
+          emit(AuthStateError("Internal Server Error"));
+        } else {
+          emit(AuthStateError("Server Error ($statusCode): $message"));
+        }
+      } else {
+        // No server response (network or timeout error)
+        emit(AuthStateError("Connection error: ${e.message}"));
       }
     } catch (e) {
-      emit(AuthStateError(e.toString()));
+      // Any unexpected Dart-side error
+      emit(AuthStateError("Unexpected error: $e"));
     }
   }
 
