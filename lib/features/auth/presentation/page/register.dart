@@ -59,7 +59,7 @@ class _RegisterState extends State<Register> {
             context.pushAndRemoveUntil(MainAppScreen());
           } else if (state is AuthStateError) {
             Navigator.pop(context);
-            showErrorToast(context, state.message);
+            showToast(context, state.message);
           }
         },
         builder: (context, state) {

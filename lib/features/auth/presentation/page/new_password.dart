@@ -50,7 +50,7 @@ class NewPassword extends StatelessWidget {
               context.pushReplacement(PasswordChanged());
             } else if (state is AuthStateError) {
               Navigator.of(context).pop();
-              showErrorToast(context, state.message);
+              showToast(context, state.message);
             }
           },
           builder: (context, state) {

@@ -51,7 +51,7 @@ class OtpVerfication extends StatelessWidget {
               context.pushTo(NewPassword());
             } else if (state is AuthStateError) {
               Navigator.of(context).pop();
-              showErrorToast(context, state.message);
+              showToast(context, state.message);
             }
           },
           builder: (context, state) {
@@ -135,7 +135,7 @@ class OtpVerfication extends StatelessWidget {
                 otpController.text.isNotEmpty) {
               context.read<AuthCubit>().resendVerifyCode();
             } else {
-              showErrorToast(context, "Enter valid OTP");
+              showToast(context, "Enter valid OTP");
             }
           },
           text: "ReSend",

@@ -1,6 +1,7 @@
 import 'package:bokkia/features/Home/data/models/best_seller_response/best_seller_response.dart';
 import 'package:bokkia/features/Home/data/models/slider_response/slider_response.dart';
 import 'package:bokkia/features/Home/data/repo/home_repo.dart';
+import 'package:bokkia/features/wishlist/data/repo/wishlist_repo.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'home_state.dart';
@@ -32,6 +33,17 @@ class HomeCubit extends Cubit<HomeState> {
         emit(HomeBestSellersuccess());
       } else {
         emit(HomeBestSellerfailure(error: "error"));
+      }
+    });
+  }
+
+  Future<void> addToWishlist(int productId) async {
+    emit(AddWishlistLoadingState());
+    await WishlistRepo.addToWishList(productId).then((value) {
+      if (value) {
+        return emit(AddWishlistSuccessState());
+      } else {
+        return emit(AddWishlistFailureState(error: "error"));
       }
     });
   }

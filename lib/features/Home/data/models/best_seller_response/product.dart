@@ -23,18 +23,27 @@ class Product {
     this.category,
   });
 
-  factory Product.fromJson(Map<String, dynamic> json) => Product(
-    id: json['id'] as int?,
-    name: json['name'] as String?,
-    description: json['description'] as String?,
-    price: json['price'] as String?,
-    discount: json['discount'] as int?,
-    priceAfterDiscount: (json['price_after_discount'] as num?)?.toDouble(),
-    stock: json['stock'] as int?,
-    bestSeller: json['best_seller'] as int?,
-    image: json['image'] as String?,
-    category: json['category'] as String?,
-  );
+  factory Product.fromJson(Map<String, dynamic> json) {
+    final price = double.tryParse(json['price']?.toString() ?? '0') ?? 0;
+    final discount = json['discount'] is int
+        ? json['discount'] as int
+        : int.tryParse(json['discount']?.toString() ?? '0') ?? 0;
+
+    final priceAfterDiscount = price - (price * discount / 100);
+
+    return Product(
+      id: json['id'] as int?,
+      name: json['name'] as String?,
+      description: json['description'] as String?,
+      price: json['price']?.toString(),
+      discount: discount,
+      priceAfterDiscount: priceAfterDiscount,
+      stock: json['stock'] as int?,
+      bestSeller: json['best_seller'] as int?,
+      image: json['image'] as String?,
+      category: json['category'] as String?,
+    );
+  }
 
   Map<String, dynamic> toJson() => {
     'id': id,

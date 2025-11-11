@@ -1,101 +1,77 @@
 import 'package:bokkia/core/utils/app_colors.dart';
 import 'package:bokkia/core/utils/text_style.dart';
-import 'package:bokkia/core/widgets/custom_button.dart';
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:bokkia/features/wishlist/presentation/cubit/wish_list_cubit.dart';
+import 'package:bokkia/features/wishlist/presentation/widgets/wish_list_item.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:gap/gap.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class WishList extends StatelessWidget {
   const WishList({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: AppColors.accentcolor,
-        centerTitle: true,
+    return BlocProvider(
+      create: (context) => WishListCubit()..getWishlist(),
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: AppColors.accentcolor,
+          centerTitle: true,
 
-        title: Text("Wishlist", style: getBodyTextStyle(context, fontsize: 24)),
-      ),
-      body: ListView.separated(
-        padding: const EdgeInsets.all(16),
-        itemCount: 10,
-        separatorBuilder: (context, index) => const Divider(),
-        itemBuilder: (context, index) {
-          return Container(
-            padding: const EdgeInsets.all(10),
-            decoration: BoxDecoration(
-              color: AppColors.accentcolor,
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
-                  child: CachedNetworkImage(
-                    fit: BoxFit.cover,
-                    height: 120,
-                    width: 90,
-                    imageUrl:
-                        "https://codingarabic.online/storage/slider/UOtz83Ow0ChFQOZYeDp48yWreuvBYjRwb8BNUexc.jpg",
+          title: Text(
+            "Wishlist",
+            style: getBodyTextStyle(context, fontsize: 24),
+          ),
+        ),
+        body: BlocConsumer<WishListCubit, WishListState>(
+          listener: (context, state) {},
+          builder: (context, state) {
+            if (state is GetWishListLoading) {
+              return Center(child: CircularProgressIndicator());
+            } else if (state is GetWishListsuccess) {
+              var books = context.read<WishListCubit>().getwishlist?.data ?? [];
+              if (books.isEmpty) {
+                return Center(
+                  child: Text(
+                    "Your wishlist is empty ❤️",
+                    style: getBodyTextStyle(
+                      context,
+                      color: AppColors.darkcolor,
+                    ),
                   ),
-                ),
-                const Gap(12),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                          Expanded(
-                            //  Prevents text overflow if book name is too long
-                            child: Text(
-                              "Book Name",
-                              style: getBodyTextStyle(
-                                context,
-                                fontsize: 18,
-                                color: AppColors.gray,
-                              ),
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ),
-                          //  Remove button on the right
-                          IconButton(
-                            onPressed: () {},
-                            icon: SvgPicture.asset(
-                              "assets/icons/Remove.svg",
-                              width: 25,
-                              height: 25,
-                            ),
-                          ),
-                        ],
+                );
+              } else {
+                return ListView.separated(
+                  padding: const EdgeInsets.all(16),
+                  itemCount: books.length,
+                  separatorBuilder: (context, index) => const Divider(),
+                  itemBuilder: (context, index) {
+                    return Container(
+                      padding: const EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                        color: AppColors.accentcolor,
+                        borderRadius: BorderRadius.circular(12),
                       ),
-                      Text("285 \$", style: getBodyTextStyle(context)),
-                      const Gap(10),
-                      Align(
-                        alignment: Alignment.centerRight,
-                        child: CustomButton(
-                          size: Size(140, 40),
-                          text: Text(
-                            "Add To Cart",
-                            style: getBodyTextStyle(
-                              context,
-                              fontsize: 14,
-                              color: AppColors.whiteColor,
-                            ),
-                          ),
-                          onpressed: () {},
-                        ),
+                      child: WishListItem(
+                        books: books[index],
+                        onPressed: () {
+                          context.read<WishListCubit>().removeWishlist(
+                            books[index].id ?? 0,
+                          );
+                        },
                       ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          );
-        },
+                    );
+                  },
+                );
+              }
+            } else if (state is GetWishListfailure) {
+              var error = state.error;
+              return Center(
+                child: Text(error, style: getBodyTextStyle(context)),
+              );
+            }
+            return Container();
+          },
+        ),
       ),
     );
   }

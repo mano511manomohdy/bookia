@@ -1,5 +1,8 @@
+import 'package:bokkia/core/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+
+enum ToastType { success, error }
 
 showLoadingDialog(BuildContext context) {
   showDialog(
@@ -20,12 +23,18 @@ showLoadingDialog(BuildContext context) {
   );
 }
 
-showErrorToast(BuildContext context, String massage) {
+showToast(
+  BuildContext context,
+  String massage, [
+  ToastType type = ToastType.error,
+]) {
   ScaffoldMessenger.of(context).showSnackBar(
     SnackBar(
       duration: Duration(seconds: 2),
       content: Text(massage),
-      backgroundColor: Colors.red,
+      backgroundColor: type == ToastType.success
+          ? AppColors.primaryColor
+          : Colors.red,
     ),
   );
 }
