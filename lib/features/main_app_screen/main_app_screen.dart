@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'package:bokkia/core/utils/app_colors.dart';
 import 'package:bokkia/features/Home/presentation/pages/home_screen.dart';
+import 'package:bokkia/features/wishlist/presentation/pages/wish_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -15,7 +16,7 @@ class _MainAppScreenState extends State<MainAppScreen> {
   int currentIndex = 0;
   final List<Widget> screens = [
     const HomeScreen(),
-    const HomeScreen(),
+    const WishList(),
     const HomeScreen(),
     const HomeScreen(),
   ];
