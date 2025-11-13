@@ -1,8 +1,11 @@
 import 'dart:ui';
 import 'package:bokkia/core/utils/app_colors.dart';
 import 'package:bokkia/features/Home/presentation/pages/home_screen.dart';
+import 'package:bokkia/features/cart/presentation/cubit/cart_cubit.dart';
+import 'package:bokkia/features/cart/presentation/pages/cart_screen.dart';
 import 'package:bokkia/features/wishlist/presentation/pages/wish_list.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 
 class MainAppScreen extends StatefulWidget {
@@ -17,87 +20,90 @@ class _MainAppScreenState extends State<MainAppScreen> {
   final List<Widget> screens = [
     const HomeScreen(),
     const WishList(),
-    const HomeScreen(),
+    const CartScreen(),
     const HomeScreen(),
   ];
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      extendBody: true, // allows nav bar to overlay body
-      body: screens[currentIndex],
-      bottomNavigationBar: ClipRRect(
-        borderRadius: const BorderRadius.vertical(top: Radius.circular(25)),
-        child: BackdropFilter(
-          filter: ImageFilter.blur(
-            sigmaX: 5,
-            sigmaY: 5,
-          ), // more blur for frosty look
-          child: Container(
-            decoration: BoxDecoration(
-              color: Colors.white.withOpacity(
-                0.0,
-              ), // more transparent glassy effect
-            ),
-            child: BottomNavigationBar(
-              type: BottomNavigationBarType.fixed,
-              backgroundColor: Colors.transparent, // keep transparent
-              elevation: 0,
-              currentIndex: currentIndex,
-              showSelectedLabels: false,
-              showUnselectedLabels: false,
-              onTap: (index) => setState(() => currentIndex = index),
+    return BlocProvider(
+      create: (context) => CartCubit(),
+      child: Scaffold(
+        extendBody: true, // allows nav bar to overlay body
+        body: screens[currentIndex],
+        bottomNavigationBar: ClipRRect(
+          borderRadius: const BorderRadius.vertical(top: Radius.circular(25)),
+          child: BackdropFilter(
+            filter: ImageFilter.blur(
+              sigmaX: 5,
+              sigmaY: 5,
+            ), // more blur for frosty look
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.white.withOpacity(
+                  0.0,
+                ), // more transparent glassy effect
+              ),
+              child: BottomNavigationBar(
+                type: BottomNavigationBarType.fixed,
+                backgroundColor: Colors.transparent, // keep transparent
+                elevation: 0,
+                currentIndex: currentIndex,
+                showSelectedLabels: false,
+                showUnselectedLabels: false,
+                onTap: (index) => setState(() => currentIndex = index),
 
-              // Remove ripple/splash/highlight effect
-              selectedItemColor: AppColors.primaryColor,
-              unselectedItemColor: Colors.white70,
-              enableFeedback: false,
-              items: [
-                BottomNavigationBarItem(
-                  icon: SvgPicture.asset("assets/icons/Home.svg"),
-                  label: "Home",
-                  activeIcon: SvgPicture.asset(
-                    "assets/icons/Home.svg",
-                    colorFilter: ColorFilter.mode(
-                      AppColors.primaryColor,
-                      BlendMode.srcIn,
+                // Remove ripple/splash/highlight effect
+                selectedItemColor: AppColors.primaryColor,
+                unselectedItemColor: Colors.white70,
+                enableFeedback: false,
+                items: [
+                  BottomNavigationBarItem(
+                    icon: SvgPicture.asset("assets/icons/Home.svg"),
+                    label: "Home",
+                    activeIcon: SvgPicture.asset(
+                      "assets/icons/Home.svg",
+                      colorFilter: ColorFilter.mode(
+                        AppColors.primaryColor,
+                        BlendMode.srcIn,
+                      ),
                     ),
                   ),
-                ),
-                BottomNavigationBarItem(
-                  icon: SvgPicture.asset("assets/icons/Bookmark.svg"),
-                  label: "Wishlist",
-                  activeIcon: SvgPicture.asset(
-                    "assets/icons/Bookmark.svg",
-                    colorFilter: ColorFilter.mode(
-                      AppColors.primaryColor,
-                      BlendMode.srcIn,
+                  BottomNavigationBarItem(
+                    icon: SvgPicture.asset("assets/icons/Bookmark.svg"),
+                    label: "Wishlist",
+                    activeIcon: SvgPicture.asset(
+                      "assets/icons/Bookmark.svg",
+                      colorFilter: ColorFilter.mode(
+                        AppColors.primaryColor,
+                        BlendMode.srcIn,
+                      ),
                     ),
                   ),
-                ),
-                BottomNavigationBarItem(
-                  icon: SvgPicture.asset("assets/icons/Category.svg"),
-                  label: "Cart",
-                  activeIcon: SvgPicture.asset(
-                    "assets/icons/Category.svg",
-                    colorFilter: ColorFilter.mode(
-                      AppColors.primaryColor,
-                      BlendMode.srcIn,
+                  BottomNavigationBarItem(
+                    icon: SvgPicture.asset("assets/icons/Category.svg"),
+                    label: "Cart",
+                    activeIcon: SvgPicture.asset(
+                      "assets/icons/Category.svg",
+                      colorFilter: ColorFilter.mode(
+                        AppColors.primaryColor,
+                        BlendMode.srcIn,
+                      ),
                     ),
                   ),
-                ),
-                BottomNavigationBarItem(
-                  icon: SvgPicture.asset("assets/icons/Profile.svg"),
-                  label: "Profile",
-                  activeIcon: SvgPicture.asset(
-                    "assets/icons/Profile.svg",
-                    colorFilter: ColorFilter.mode(
-                      AppColors.primaryColor,
-                      BlendMode.srcIn,
+                  BottomNavigationBarItem(
+                    icon: SvgPicture.asset("assets/icons/Profile.svg"),
+                    label: "Profile",
+                    activeIcon: SvgPicture.asset(
+                      "assets/icons/Profile.svg",
+                      colorFilter: ColorFilter.mode(
+                        AppColors.primaryColor,
+                        BlendMode.srcIn,
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),

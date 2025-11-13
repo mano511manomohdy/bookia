@@ -1,5 +1,6 @@
 import 'package:bokkia/core/utils/app_colors.dart';
 import 'package:bokkia/core/utils/text_style.dart';
+import 'package:bokkia/features/cart/presentation/cubit/cart_cubit.dart';
 import 'package:bokkia/features/wishlist/presentation/cubit/wish_list_cubit.dart';
 import 'package:bokkia/features/wishlist/presentation/widgets/wish_list_item.dart';
 import 'package:flutter/material.dart';
@@ -10,8 +11,11 @@ class WishList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => WishListCubit()..getWishlist(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => WishListCubit()..getWishlist()),
+        BlocProvider(create: (context) => CartCubit()),
+      ],
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: AppColors.accentcolor,
