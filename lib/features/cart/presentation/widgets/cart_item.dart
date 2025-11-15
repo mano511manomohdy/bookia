@@ -1,16 +1,16 @@
 import 'package:bokkia/core/utils/app_colors.dart';
 import 'package:bokkia/core/utils/text_style.dart';
 import 'package:bokkia/core/widgets/custom_button.dart';
-import 'package:bokkia/features/cart/data/models/add_to_cart_response/add_to_cart_response.dart';
+import 'package:bokkia/features/cart/data/models/add_to_cart_response/cart_item.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 
-class CartItem extends StatelessWidget {
-  const CartItem({super.key, required this.books, this.onPressed});
+class CartItemWidget extends StatelessWidget {
+  const CartItemWidget({super.key, required this.books, this.onPressed});
 
-  final AddToCartResponse books;
+  final CartItem books;
   final Function()? onPressed;
 
   @override
@@ -24,7 +24,7 @@ class CartItem extends StatelessWidget {
             fit: BoxFit.cover,
             height: 120,
             width: 90,
-            imageUrl: "assets/images/welcom.jpg",
+            imageUrl: books.itemProductImage!,
           ),
         ),
         const Gap(12),
@@ -37,7 +37,7 @@ class CartItem extends StatelessWidget {
                   Expanded(
                     //  Prevents text overflow if book name is too long
                     child: Text(
-                      "book name",
+                      books.itemProductName!,
                       style: getBodyTextStyle(
                         context,
                         fontsize: 18,
@@ -48,7 +48,7 @@ class CartItem extends StatelessWidget {
                   ),
                   //  Remove button on the right
                   IconButton(
-                    onPressed: () {},
+                    onPressed: onPressed,
                     icon: SvgPicture.asset(
                       "assets/icons/Remove.svg",
                       width: 25,
@@ -57,7 +57,10 @@ class CartItem extends StatelessWidget {
                   ),
                 ],
               ),
-              Text("130 \$", style: getBodyTextStyle(context)),
+              Text(
+                "${books.itemProductPriceAfterDiscount} \$",
+                style: getBodyTextStyle(context),
+              ),
               const Gap(10),
               Align(
                 alignment: Alignment.centerRight,

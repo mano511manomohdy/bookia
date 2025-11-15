@@ -3,7 +3,7 @@ import 'package:bokkia/core/utils/text_style.dart';
 import 'package:bokkia/core/widgets/custom_button.dart';
 import 'package:bokkia/core/widgets/dialogs.dart';
 import 'package:bokkia/features/Home/data/models/best_seller_response/product.dart';
-import 'package:bokkia/features/cart/presentation/cubit/cart_cubit.dart';
+import 'package:bokkia/features/wishlist/presentation/cubit/wish_list_cubit.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -67,23 +67,20 @@ class WishListItem extends StatelessWidget {
               const Gap(10),
               Align(
                 alignment: Alignment.centerRight,
-                child: BlocConsumer<CartCubit, CartState>(
+                child: BlocConsumer<WishListCubit, WishListState>(
                   listener: (context, state) {
-                    if (state is CartLoadingState) {
-                      showLoadingDialog(context);
-                    } else if (state is CartSuccessState) {
-                      Navigator.pop(context);
+                    if (state is AddToCartSuccess) {
                       showToast(
                         context,
-                        "book added successfuly",
+                        "book added successfully",
                         ToastType.success,
                       );
-                    } else if (state is CartFailureState) {
-                      Navigator.pop(context);
+                    } else if (state is AddToCartFailure) {
                       showToast(context, state.error);
                     }
                   },
                   builder: (context, state) {
+                    bool isLoading = state is AddToCartLoading;
                     return CustomButton(
                       size: Size(140, 40),
                       text: Text(
@@ -94,11 +91,15 @@ class WishListItem extends StatelessWidget {
                           color: AppColors.whiteColor,
                         ),
                       ),
-                      onpressed: () {
-                        if (books.id != null) {
-                          context.read<CartCubit>().addToCart(books.id ?? 0);
-                        }
-                      },
+                      onpressed: isLoading
+                          ? () {}
+                          : () {
+                              if (books.id != null) {
+                                context.read<WishListCubit>().addToCart(
+                                  books.id ?? 0,
+                                );
+                              }
+                            },
                     );
                   },
                 ),

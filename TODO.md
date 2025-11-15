@@ -1,0 +1,5 @@
+- [x] Add new states for add to cart in wish_list_state.dart
+- [x] Update WishListCubit to use separate states for addToCart
+- [x] Modify WishListItem to listen only for add to cart states
+- [x] Add timeouts to DioProvider
+- [x] Test the add to cart functionality

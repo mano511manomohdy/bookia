@@ -10,11 +10,13 @@ class AddToCartResponse {
 
   factory AddToCartResponse.fromJson(Map<String, dynamic> json) {
     return AddToCartResponse(
-      data: json['data'] == null
-          ? null
-          : Data.fromJson(json['data'] as Map<String, dynamic>),
+      data: json['data'] != null && json['data'] is Map<String, dynamic>
+          ? Data.fromJson(json['data'] as Map<String, dynamic>)
+          : null,
       message: json['message'] as String?,
-      error: json['error'] as List<dynamic>?,
+      error: json['error'] is List<dynamic>
+          ? json['error'] as List<dynamic>
+          : null,
       status: json['status'] as int?,
     );
   }

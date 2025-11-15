@@ -140,8 +140,8 @@ class _RegisterState extends State<Register> {
                         suffixIcon: Padding(
                           padding: const EdgeInsets.only(right: 10.0),
                           child: SvgPicture.asset(
-                            "assets/icons/fluent_eye-20-filled.svg",
                             fit: BoxFit.cover,
+                            "assets/icons/fluent_eye-20-filled.svg",
                           ),
                         ),
                       ),
@@ -170,8 +170,8 @@ class _RegisterState extends State<Register> {
                         suffixIcon: Padding(
                           padding: const EdgeInsets.only(right: 10.0),
                           child: SvgPicture.asset(
-                            "assets/icons/fluent_eye-20-filled.svg",
                             fit: BoxFit.cover,
+                            "assets/icons/fluent_eye-20-filled.svg",
                           ),
                         ),
                       ),

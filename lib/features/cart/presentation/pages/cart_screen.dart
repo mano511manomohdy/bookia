@@ -10,59 +10,67 @@ class CartScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: AppColors.accentcolor,
-        centerTitle: true,
+    return BlocProvider(
+      create: (context) => CartCubit()..getCart(),
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: AppColors.accentcolor,
+          centerTitle: true,
 
-        title: Text("Cart", style: getBodyTextStyle(context, fontsize: 24)),
-      ),
-      body: BlocConsumer<CartCubit, CartState>(
-        listener: (context, state) {},
-        builder: (context, state) {
-          if (state is CartLoadingState) {
-            return Center(child: CircularProgressIndicator());
-          } else if (state is CartSuccessState) {
-            var returnbook = context.read<CartCubit>().showdata;
-            var books =
-                context.read<CartCubit>().showdata?.data?.cartItems ?? [];
-            if (books.isEmpty) {
+          title: Text("Cart", style: getBodyTextStyle(context, fontsize: 24)),
+        ),
+        body: BlocConsumer<CartCubit, CartState>(
+          listener: (context, state) {},
+          builder: (context, state) {
+            if (state is CartLoadingState) {
+              return Center(child: CircularProgressIndicator());
+            } else if (state is CartSuccessState) {
+              var returnbook = context.read<CartCubit>().showdata;
+              var books =
+                  context.read<CartCubit>().showdata?.data?.cartItems ?? [];
+              if (books.isEmpty) {
+                return Center(
+                  child: Text(
+                    "Your cart is empty ❤️",
+                    style: getBodyTextStyle(
+                      context,
+                      color: AppColors.darkcolor,
+                    ),
+                  ),
+                );
+              } else {
+                return ListView.separated(
+                  padding: const EdgeInsets.all(16),
+                  itemCount: books.length,
+                  separatorBuilder: (context, index) => const Divider(),
+                  itemBuilder: (context, index) {
+                    return Container(
+                      padding: const EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                        color: AppColors.accentcolor,
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: CartItemWidget(
+                        books: returnbook!.data!.cartItems![index],
+                        onPressed: () {
+                          context.read<CartCubit>().removeFromCart(
+                            books[index].itemId ?? 0,
+                          );
+                        },
+                      ),
+                    );
+                  },
+                );
+              }
+            } else if (state is CartFailureState) {
+              var error = state.error;
               return Center(
-                child: Text(
-                  "Your cart is empty ❤️",
-                  style: getBodyTextStyle(context, color: AppColors.darkcolor),
-                ),
-              );
-            } else {
-              return ListView.separated(
-                padding: const EdgeInsets.all(16),
-                itemCount: books.length,
-                separatorBuilder: (context, index) => const Divider(),
-                itemBuilder: (context, index) {
-                  return Container(
-                    padding: const EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                      color: AppColors.accentcolor,
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: CartItem(
-                      books: returnbook!,
-                      onPressed: () {
-                        context.read<CartCubit>().removeFromCart(
-                          books[index].itemId ?? 0,
-                        );
-                      },
-                    ),
-                  );
-                },
+                child: Text(error, style: getBodyTextStyle(context)),
               );
             }
-          } else if (state is CartFailureState) {
-            var error = state.error;
-            return Center(child: Text(error, style: getBodyTextStyle(context)));
-          }
-          return Container();
-        },
+            return Container();
+          },
+        ),
       ),
     );
   }

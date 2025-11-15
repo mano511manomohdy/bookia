@@ -23,3 +23,13 @@ final class RemoveWishListFailure extends WishListState {
 
   RemoveWishListFailure({required this.error});
 }
+
+final class AddToCartLoading extends WishListState {}
+
+final class AddToCartSuccess extends WishListState {}
+
+final class AddToCartFailure extends WishListState {
+  final String error;
+
+  AddToCartFailure({required this.error});
+}

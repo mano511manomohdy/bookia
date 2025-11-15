@@ -28,8 +28,20 @@ class BookDetails extends StatelessWidget {
             showLoadingDialog(context);
           } else if (state is AddWishlistSuccessState) {
             Navigator.pop(context);
-            showToast(context, "Added Successfully", ToastType.success);
+            showToast(context, state.message, ToastType.success);
           } else if (state is AddWishlistFailureState) {
+            Navigator.pop(context);
+            showToast(context, state.error);
+          } else if (state is AddCartLoadingState) {
+            showLoadingDialog(context);
+          } else if (state is AddCartSuccessState) {
+            Navigator.pop(context);
+            showToast(
+              context,
+              "Book added to cart successfully",
+              ToastType.success,
+            );
+          } else if (state is AddCartFailureState) {
             Navigator.pop(context);
             showToast(context, state.error);
           }
@@ -154,13 +166,25 @@ class BookDetails extends StatelessWidget {
                             size: const Size(200, 45),
                             color: AppColors.darkcolor,
                             text: Text(
-                              "Buy",
+                              "Add To Cart",
                               style: getTitleTextStyle(
                                 context,
                                 color: AppColors.whiteColor,
                               ),
                             ),
-                            onpressed: () {},
+                            onpressed: () {
+                              if (product.id != null) {
+                                context.read<HomeCubit>().addToCart(
+                                  product.id ?? 0,
+                                );
+                              } else {
+                                showToast(
+                                  context,
+                                  "Invalid product id",
+                                  ToastType.error,
+                                );
+                              }
+                            },
                           ),
                         ],
                       ),

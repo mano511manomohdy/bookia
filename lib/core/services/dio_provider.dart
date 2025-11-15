@@ -3,7 +3,13 @@ import 'package:dio/dio.dart';
 class DioProvider {
   static late Dio _dio;
   static init() {
-    _dio = Dio(BaseOptions(baseUrl: "https://codingarabic.online/api/"));
+    _dio = Dio(
+      BaseOptions(
+        baseUrl: "https://codingarabic.online/api/",
+        connectTimeout: Duration(seconds: 10),
+        receiveTimeout: Duration(seconds: 10),
+      ),
+    );
   }
 
   static Future<Response> get({

@@ -7,7 +7,7 @@ part 'cart_state.dart';
 class CartCubit extends Cubit<CartState> {
   CartCubit() : super(CartInitial());
   AddToCartResponse? showdata;
-  AddToCartResponse? remdata;
+
   Future<void> getCart() async {
     emit(CartLoadingState());
     try {
@@ -39,12 +39,12 @@ class CartCubit extends Cubit<CartState> {
     }
   }
 
-  Future<void> removeFromCart(int productId) async {
+  Future<void> removeFromCart(int cartItemId) async {
     emit(CartLoadingState());
     try {
-      await Addtocartrepo.removeCart(productId).then((value) {
+      await Addtocartrepo.removeCart(cartItemId).then((value) {
         if (value != null) {
-          remdata = value;
+          showdata = value;
           emit(CartSuccessState());
         } else {
           emit(CartFailureState(error: "error"));
