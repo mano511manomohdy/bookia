@@ -1,6 +1,5 @@
 import 'package:bokkia/core/utils/app_colors.dart';
 import 'package:bokkia/core/utils/text_style.dart';
-import 'package:bokkia/core/widgets/custom_button.dart';
 import 'package:bokkia/features/cart/data/models/add_to_cart_response/cart_item.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -8,10 +7,18 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 
 class CartItemWidget extends StatelessWidget {
-  const CartItemWidget({super.key, required this.books, this.onPressed});
+  const CartItemWidget({
+    super.key,
+    required this.books,
+    this.onPressed,
+    this.onAdd,
+    this.onRemove,
+  });
 
   final CartItem books;
   final Function()? onPressed;
+  final Function()? onAdd;
+  final Function()? onRemove;
 
   @override
   Widget build(BuildContext context) {
@@ -64,17 +71,38 @@ class CartItemWidget extends StatelessWidget {
               const Gap(10),
               Align(
                 alignment: Alignment.centerRight,
-                child: CustomButton(
-                  size: Size(140, 40),
-                  text: Text(
-                    "Add To Cart",
-                    style: getBodyTextStyle(
-                      context,
-                      fontsize: 14,
-                      color: AppColors.whiteColor,
+                child: Row(
+                  children: [
+                    FloatingActionButton(
+                      onPressed: onAdd,
+                      backgroundColor: AppColors.accentcolor,
+                      elevation: 0,
+                      child: Icon(
+                        Icons.add,
+                        size: 32,
+                        color: AppColors.primaryColor,
+                      ),
                     ),
-                  ),
-                  onpressed: () {},
+                    Gap(20),
+                    Text(
+                      books.itemQuantity.toString(),
+                      style: getBodyTextStyle(
+                        color: AppColors.darkcolor,
+                        context,
+                      ),
+                    ),
+                    Gap(20),
+                    FloatingActionButton(
+                      onPressed: onRemove,
+                      backgroundColor: AppColors.accentcolor,
+                      elevation: 0,
+                      child: Icon(
+                        Icons.remove,
+                        size: 32,
+                        color: AppColors.primaryColor,
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ],

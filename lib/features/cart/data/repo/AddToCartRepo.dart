@@ -22,12 +22,6 @@ class Addtocartrepo {
         return false;
       }
     } catch (e) {
-      if (e is DioException) {
-        print(
-          '==========================================================>dio exception',
-        );
-        print(e.response);
-      }
       log(e.toString());
       return false;
     }
@@ -69,12 +63,6 @@ class Addtocartrepo {
         return null;
       }
     } catch (e) {
-      if (e is DioException) {
-        print(
-          '==========================================================>dio exception',
-        );
-        print(e.response);
-      }
       log(e.toString());
       return null;
     }
@@ -87,7 +75,7 @@ class Addtocartrepo {
     try {
       var res = await DioProvider.post(
         path: Endpoints.updateCart,
-        data: {"item_id": cartItemId, "quantity": quantity},
+        data: {"cart_item_id": cartItemId, "quantity": quantity},
         headers: {
           "Authorization":
               "Bearer ${AppLocalStorage.getDate(AppLocalStorage.tokenkey)}",
@@ -98,7 +86,10 @@ class Addtocartrepo {
       } else {
         return null;
       }
-    } catch (e) {
+    } on DioException catch (e) {
+      print("🔥 DIO ERROR MESSAGE: ${e.response?.data}");
+      print("🔥 STATUS CODE: ${e.response?.statusCode}");
+      print("🔥 HEADERS: ${e.response?.headers}");
       log(e.toString());
       return null;
     }

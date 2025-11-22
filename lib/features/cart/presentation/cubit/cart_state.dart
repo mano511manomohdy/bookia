@@ -13,3 +13,15 @@ final class CartFailureState extends CartState {
 
   CartFailureState({required this.error});
 }
+
+final class CartUpdateInitial extends CartState {}
+
+final class CartUpdateLoadingState extends CartState {}
+
+final class CartUpdateSuccessState extends CartState {}
+
+final class CartUpdateFailureState extends CartState {
+  final String error;
+
+  CartUpdateFailureState({required this.error});
+}
